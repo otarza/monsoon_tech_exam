@@ -1,0 +1,6 @@
+name: Monsoon Tech Exam
+description: Pulls data from the Open Weather API and shows the current weather for Dublin, Ireland in a custom block.
+type: module
+package: Monsoon
+core_version_requirement: ^8 || ^9
+configure: monsoon_tech_exam.configure
