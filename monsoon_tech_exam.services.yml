@@ -1,0 +1,3 @@
+services:
+  monsoon_tech_exam.weather_service:
+    class: Drupal\monsoon_tech_exam\Services\WeatherService
