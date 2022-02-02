@@ -19,3 +19,17 @@ function monsoon_tech_exam_cron() {
 
   \Drupal::messenger()->addMessage(t('Weather data updated!'));
 }
+
+/**
+ * Implements hook_theme().
+ */
+function monsoon_tech_exam_theme($existing, $type, $theme, $path) {
+  return [
+    'weather_block' => [
+      'variables' => [
+        'weather_data' => NULL,
+      ],
+      'template' => 'block--weather-block',
+    ],
+  ];
+}
