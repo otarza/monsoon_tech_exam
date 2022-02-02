@@ -1,0 +1,7 @@
+monsoon_tech_exam.weather_config_form:
+  path: '/admin/config/services/weather'
+  defaults:
+    _form: '\Drupal\monsoon_tech_exam\Form\WeatherConfigForm'
+    _title: 'WeatherConfigForm'
+  requirements:
+    _access: 'TRUE'

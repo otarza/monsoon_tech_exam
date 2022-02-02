@@ -3,4 +3,4 @@ description: Pulls data from the Open Weather API and shows the current weather 
 type: module
 package: Monsoon
 core_version_requirement: ^8 || ^9
-configure: monsoon_tech_exam.configure
+configure: monsoon_tech_exam.weather_config_form
