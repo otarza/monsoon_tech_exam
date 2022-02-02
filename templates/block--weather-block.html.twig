@@ -44,11 +44,11 @@
   {{ title_suffix }}
   {% block content %}
     <div{{ content_attributes.addClass('content') }}>
-      <p> Temperature: {{ weather_data.main.temp }}</p>
-      <p> Weather: {{ weather_data.weather.0.main }} - {{ weather_data.weather.0.description }} </p>
-      <p> Feels Like: {{ weather_data.main.feels_like }}</p>
-      <p> Pressure: {{ weather_data.main.pressure }}</p>
-      <p> Humidity: {{ weather_data.main.humidity }}</p>
+      <p> {{ 'Temperature'|t }}: {{ weather_data.main.temp }}</p>
+      <p> {{ 'Feels Like'|t }}: {{ weather_data.main.feels_like }}</p>
+      <p> {{ 'Weather'|t }}: {{ weather_data.weather.0.main }} - {{ weather_data.weather.0.description }} </p>
+      <p> {{ 'Pressure'|t }}: {{ weather_data.main.pressure }}</p>
+      <p> {{ 'Humidity' }}: {{ weather_data.main.humidity }}</p>
     </div>
   {% endblock %}
 </div>
