@@ -1,0 +1,6 @@
+monsoon_tech_exam.weather_config_form:
+  route_name: monsoon_tech_exam.weather_config_form
+  title: Open Weather API
+  description: 'Configure Open Weather API.'
+  parent: system.admin_config_services
+  weight: 1
