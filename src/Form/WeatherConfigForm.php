@@ -4,44 +4,50 @@ namespace Drupal\monsoon_tech_exam\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\State\StateInterface;
+use Drupal\monsoon_tech_exam\Services\WeatherService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class WeatherConfigForm.
+ * Stores weather config using State API.
  */
-class WeatherConfigForm extends FormBase
-{
+class WeatherConfigForm extends FormBase {
 
   /**
-   * Drupal\Core\State\StateInterface definition.
+   * State service.
    *
-   * @var \Drupal\Core\State\StateInterface
+   * @var Drupal\Core\State\StateInterface
    */
-  protected $state;
+  protected StateInterface $state;
+
+  /**
+   * Weather service.
+   *
+   * @var Drupal\monsoon_tech_exam\Services\WeatherService
+   */
+  protected WeatherService $weatherService;
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container)
-  {
+  public static function create(ContainerInterface $container): WeatherConfigForm {
     $instance = parent::create($container);
     $instance->state = $container->get('state');
+    $instance->weatherService = $container->get('monsoon_tech_exam.weather_service');
     return $instance;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getFormId()
-  {
+  public function getFormId(): string {
     return 'weather_config_form';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state)
-  {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['api_key'] = [
       '#type' => 'textfield',
       '#title' => $this->t('API Key'),
@@ -84,19 +90,7 @@ class WeatherConfigForm extends FormBase
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state)
-  {
-    foreach ($form_state->getValues() as $key => $value) {
-      // @TODO: Validate fields.
-    }
-    parent::validateForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state)
-  {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
 
     if (array_key_exists('api_key', $values)) {
@@ -111,8 +105,10 @@ class WeatherConfigForm extends FormBase
       $this->state->set('monsoon_tech_exam.cron_mode', $values['cron_mode']);
     }
 
-    \Drupal::messenger()->addMessage($this->t('Configuration saved!'));
+    // Retrieve and store information upon configuration update.
+    $this->weatherService->storeWeatherData($this->weatherService->fetchWeatherData());
 
+    \Drupal::messenger()->addMessage($this->t('Configuration saved!'));
   }
 
 }
