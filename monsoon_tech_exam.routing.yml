@@ -4,4 +4,4 @@ monsoon_tech_exam.weather_config_form:
     _form: '\Drupal\monsoon_tech_exam\Form\WeatherConfigForm'
     _title: 'WeatherConfigForm'
   requirements:
-    _access: 'TRUE'
+    _permission: 'access administration pages'
