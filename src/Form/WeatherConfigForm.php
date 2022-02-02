@@ -108,6 +108,7 @@ class WeatherConfigForm extends FormBase {
     // Retrieve and store information upon configuration update.
     $this->weatherService->storeWeatherData($this->weatherService->fetchWeatherData());
 
+    \Drupal::messenger()->addMessage($this->t('Weather data updated!'));
     \Drupal::messenger()->addMessage($this->t('Configuration saved!'));
   }
 
