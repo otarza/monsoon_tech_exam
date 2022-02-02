@@ -2,7 +2,6 @@
 
 namespace Drupal\monsoon_tech_exam\Services;
 
-
 /**
  * A service providing functionality to communicate with weather API.
  */
@@ -49,14 +48,15 @@ class WeatherService {
    * Get weather data either from State API or weather API.
    */
   public function getWeatherData() {
-    // Check if cron mode is disabled and fetch data directly in that case.
-    if(\Drupal::state()->get('monsoon_tech_exam.cron_mode') === 0) {
-      return $this->fetchWeatherData();
-    }
-
     $weatherData = NULL;
+    // Check if API Key is set.
     $api_key = \Drupal::state()->get('monsoon_tech_exam.api_key');
     if (!empty($api_key)) {
+      // Check if cron mode is disabled and fetch data directly in that case.
+      if (\Drupal::state()->get('monsoon_tech_exam.cron_mode') === 0) {
+        return $this->fetchWeatherData();
+      }
+
       // Try to load stored weather data.
       $weatherData = $this->loadWeatherData();
       // Check if weather data was returned from State storage.
