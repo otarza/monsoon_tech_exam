@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * This module provides widget to show weather.
+ */
+
+/**
+ * Implements hook_cron().
+ */
+function monsoon_tech_exam_cron() {
+  /**
+   * Weather service.
+   *
+   * @var \Drupal\monsoon_tech_exam\Services\WeatherService
+   */
+  $weatherService = Drupal::service('monsoon_tech_exam.weather_service');
+  $weatherService->storeWeatherData($weatherService->fetchWeatherData());
+
+  \Drupal::messenger()->addMessage(t('Weather data updated!'));
+}
