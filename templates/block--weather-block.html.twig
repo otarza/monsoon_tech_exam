@@ -44,12 +44,18 @@
   {{ title_suffix }}
   {% block content %}
     <div{{ content_attributes.addClass('content') }}>
-      <p> {{ 'Location'|t }}: {{ weather_data.name }}</p>
-      <p> {{ 'Temperature'|t }}: {{ weather_data.main.temp }}</p>
-      <p> {{ 'Feels Like'|t }}: {{ weather_data.main.feels_like }}</p>
-      <p> {{ 'Weather'|t }}: {{ weather_data.weather.0.main }} - {{ weather_data.weather.0.description }} </p>
-      <p> {{ 'Pressure'|t }}: {{ weather_data.main.pressure }}</p>
-      <p> {{ 'Humidity' }}: {{ weather_data.main.humidity }}</p>
+      {% if weather_data %}
+        <p> {{ 'Location'|t }}: {{ weather_data.name }}</p>
+        <p> {{ 'Temperature'|t }}: {{ weather_data.main.temp }}</p>
+        <p> {{ 'Feels Like'|t }}: {{ weather_data.main.feels_like }}</p>
+        <p> {{ 'Weather'|t }}: {{ weather_data.weather.0.main }} - {{ weather_data.weather.0.description }} </p>
+        <p> {{ 'Pressure'|t }}: {{ weather_data.main.pressure }}</p>
+        <p> {{ 'Humidity' }}: {{ weather_data.main.humidity }}</p>
+      {% else %}
+        <p>
+          Please set an API key from <a href="{{ path('monsoon_tech_exam.weather_config_form') }}"> Open Weather API Config form. </a>
+        </p>
+      {% endif %}
     </div>
   {% endblock %}
 </div>

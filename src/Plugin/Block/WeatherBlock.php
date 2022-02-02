@@ -50,9 +50,10 @@ class WeatherBlock extends BlockBase implements ContainerFactoryPluginInterface 
    * {@inheritdoc}
    */
   public function build() {
+    $weatherData = $this->weatherService->getWeatherData();
     return [
       '#theme' => 'weather_block',
-      '#weather_data' => json_decode($this->weatherService->getWeatherData()),
+      '#weather_data' => ($weatherData) ? json_decode($weatherData) : NULL,
     ];
   }
 
